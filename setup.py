@@ -61,15 +61,24 @@ class CMakeBuild(build_ext):
         )
 
 
+# Read long description
+long_desc = 'BMI wrapper for openLISEM hydrological and erosion model'
+for readme_file in ['BMI_QUICKSTART.md', 'README.txt', 'README.md']:
+    if os.path.exists(readme_file):
+        with open(readme_file, 'r') as f:
+            long_desc = f.read()
+        break
+
 setup(
     name='bmi-openlisem',
     version='0.1.0',
     author='openLISEM Development Team',
     author_email='v.g.jetten@utwente.nl',
     description='BMI wrapper for openLISEM hydrological and erosion model',
-    long_description=open('README.txt').read() if os.path.exists('README.txt') else '',
-    long_description_content_type='text/plain',
+    long_description=long_desc,
+    long_description_content_type='text/markdown',
     url='https://github.com/vjetten/openlisem',
+    packages=[],  # No Python packages, just C++ extension
     ext_modules=[CMakeExtension('bmi_openlisem')],
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
@@ -81,7 +90,6 @@ setup(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering :: Hydrology',
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
