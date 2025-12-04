@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bmi_openlisem"
+version = "1.0.0"
+description = "BMI wrapper for OpenLISEM hydrological model"
+readme = "README_BMI.md"
+license = {text = "GPLv3"}
+authors = [
+    {name = "Victor Jetten", email = "v.g.jetten@utwente.nl"},
+]
+maintainers = [
+    {name = "Victor Jetten", email = "v.g.jetten@utwente.nl"},
+]
+keywords = [
+    "hydrology",
+    "erosion",
+    "model coupling",
+    "BMI",
+    "CSDMS",
+    "OpenLISEM",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Hydrology",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.20.0",
+]
+
+[project.optional-dependencies]
+gdal = ["GDAL>=3.0.0"]
+scipy = ["scipy>=1.7.0"]
+full = ["GDAL>=3.0.0", "scipy>=1.7.0"]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/vjetten/openlisem"
+Documentation = "https://sourceforge.net/projects/lisem/"
+Repository = "https://github.com/vjetten/openlisem"
+Issues = "https://github.com/vjetten/openlisem/issues"
+
+[project.scripts]
+bmi-openlisem = "bmi_openlisem.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["bmi_openlisem*"]
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311"]
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "I", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
